@@ -32,6 +32,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install requests pandas gspread google-auth
+        pip install requests pandas gspread google-auth yfinance
 
     # ==============================================================
     # 【解法二】如果你使用免金鑰認證 (WIF)，請「取消註解」下方這段設定
