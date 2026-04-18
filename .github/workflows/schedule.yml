@@ -1,4 +1,4 @@
-name: 每週五晚間自動篩選股票
+name: 每週六晚間自動篩選股票
 
 on:
   schedule:
