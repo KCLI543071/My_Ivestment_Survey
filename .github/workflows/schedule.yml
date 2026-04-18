@@ -5,7 +5,7 @@ on:
     # 這是 UTC 時間。台灣時間 (CST) 是 UTC+8。
     # 台灣週五晚上 22:00 = UTC 週五下午 14:00
     # cron 格式： 分 時 日 月 星期
-    - cron: '0 14 * * 6'
+    - cron: '30 14 * * 6'
   
   # 加入 workflow_dispatch 讓你可以隨時在 GitHub 網頁上手動點擊執行測試
   workflow_dispatch:
