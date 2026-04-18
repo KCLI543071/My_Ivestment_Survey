@@ -15,10 +15,10 @@ import yfinance as yf
 csv_url = "https://docs.google.com/spreadsheets/d/1GGtdEkqKvG6PJnxl0qpi4eaOB9hbUNB_XhnFy0H6TEc/export?format=csv&gid=830651350"
 df = pd.read_csv(csv_url)
 column_a_list = df["個股"].dropna().tolist()  
-N = 100 # 要抓幾支股票
-Ini = 20
-column_a_list_100 = column_a_list[Ini:Ini+N]
-
+# N = 100 # 要抓幾支股票
+# Ini = 20
+# column_a_list_100 = column_a_list[Ini:Ini+N]
+column_a_list_100 = column_a_list
 # ==========================================
 # 2. 抓取單支股票最近 6 個月的日收盤價 (已優化：改用 Yahoo Finance API)
 # ==========================================
