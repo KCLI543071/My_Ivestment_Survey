@@ -1,0 +1,50 @@
+name: 每週五晚間自動篩選股票
+
+on:
+  schedule:
+    # 這是 UTC 時間。台灣時間 (CST) 是 UTC+8。
+    # 台灣週五晚上 22:00 = UTC 週五下午 14:00
+    # cron 格式： 分 時 日 月 星期
+    - cron: '0 14 * * 5'
+  
+  # 加入 workflow_dispatch 讓你可以隨時在 GitHub 網頁上手動點擊執行測試
+  workflow_dispatch:
+
+jobs:
+  run-stock-bot:
+    runs-on: ubuntu-latest
+    
+    # 加上這段權限設定，這是「免金鑰認證(WIF)」必須的要求
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+    - name: 取得程式碼
+      uses: actions/checkout@v3
+
+    - name: 設定 Python 環境
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10' # 使用 Python 3.10
+
+    - name: 安裝所需套件
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests pandas gspread google-auth
+
+    # ==============================================================
+    # 【解法二】如果你使用免金鑰認證 (WIF)，請「取消註解」下方這段設定
+    # ==============================================================
+    # - name: Google Cloud 免金鑰認證 (WIF)
+    #   uses: google-github-actions/auth@v2
+    #   with:
+    #     workload_identity_provider: ${{ secrets.WIF_PROVIDER }}
+    #     service_account: ${{ secrets.GCP_SERVICE_ACCOUNT }}
+
+    - name: 執行爬蟲與分析程式
+      # 設定環境變數，將 GitHub Secrets 裡的金鑰傳給 Python 程式
+      env:
+        GOOGLE_CREDENTIALS: ${{ secrets.GOOGLE_CREDENTIALS }}
+      run: |
+        python stock_bollinger_bot.py
