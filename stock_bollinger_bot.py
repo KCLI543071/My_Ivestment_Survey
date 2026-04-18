@@ -14,7 +14,7 @@ from google.oauth2.service_account import Credentials
 csv_url = "https://docs.google.com/spreadsheets/d/1GGtdEkqKvG6PJnxl0qpi4eaOB9hbUNB_XhnFy0H6TEc/export?format=csv&gid=830651350"
 df = pd.read_csv(csv_url)
 column_a_list = df["個股"].dropna().tolist()  
-N = 10  # 要抓幾支股票
+N = 500  # 要抓幾支股票
 Ini = 0
 column_a_list_100 = column_a_list[Ini:Ini+N]
 
